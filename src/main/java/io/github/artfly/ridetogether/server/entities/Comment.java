@@ -11,13 +11,12 @@ import java.util.List;
 public class Comment {
     @Id
     @GeneratedValue
-    @JsonProperty("id")
     @Column(name = "comment_id")
     private Long id;
 
-    @JsonProperty("content")
-    @NotNull
-    private String content;
+
+    @Column(nullable = false)
+    private String text;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;
@@ -27,23 +26,20 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User creator;
 
-    @JsonProperty("added_at")
     private Long addedAt = System.currentTimeMillis() / 1000L;
 
-    @JsonProperty("likes")
-    @NotNull
+    @Column(nullable = false)
     private Integer likes;
 
-    @JsonProperty("dislikes")
-    @NotNull
+    @Column(nullable = false)
     private Integer dislikes;
 
     public Long getId() {
         return id;
     }
 
-    public String getContent() {
-        return content;
+    public String getText() {
+        return text;
     }
 
     public List<Image> getImages() {

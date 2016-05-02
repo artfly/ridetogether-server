@@ -1,5 +1,6 @@
 package io.github.artfly.ridetogether.server.controllers;
 
+import io.github.artfly.ridetogether.server.entities.Route;
 import io.github.artfly.ridetogether.server.entities.User;
 import io.github.artfly.ridetogether.server.repositories.ImageRepository;
 import io.github.artfly.ridetogether.server.repositories.UserRepository;
@@ -24,18 +25,20 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> postUser(@RequestBody @Valid User user) {
+    ResponseEntity<User> postUser(@RequestBody User user) {
+        System.out.println(user);
         Utils.validate(user.getImage(), imageRepository);
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "{userId}", method = RequestMethod.GET)
-    ResponseEntity<?> getUser(@PathVariable Long userId) {
+    ResponseEntity<User> getUser(@PathVariable Long userId) {
+        Utils.validate(userId, userRepository);
         return new ResponseEntity<>(userRepository.findOne(userId), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
-    ResponseEntity<?> updateUser(@PathVariable Long userId, @RequestBody User user) {
+    ResponseEntity<HttpStatus> updateUser(@PathVariable Long userId, @RequestBody User user) {
         Utils.validate(userId, userRepository);
         Utils.validate(user.getImage(), imageRepository);
         User dbUser = userRepository.findOne(userId);

@@ -4,20 +4,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue
-    @JsonProperty("id")
-    @Column(name = "user_id")
     private Long id;
 
-    @NotNull
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @NotNull
+    @Column(nullable = false)
     private String password;
 
     @JsonProperty("image_path")
@@ -26,17 +26,14 @@ public class User {
     private Image image;
 
     // Google Places API id
-    @JsonProperty("place_id")
-    @NotNull
+    @Column(nullable = false)
     private String placeId;
 
-    @JsonProperty("route_type")
     private String routeType;
 
-    @JsonProperty("bike_model")
     private String bikeModel;
 
-    @JsonProperty("registered_at")
+
     private Long registeredAt = System.currentTimeMillis() / 1000L;
 
     User () {
@@ -109,4 +106,12 @@ public class User {
     public void setBikeModel(String bikeModel) {
         this.bikeModel = bikeModel;
     }
+
+//    @Override
+//    public String toString() {
+//        return Arrays.asList(getClass().getFields())
+//                .stream()
+//                .map(Field::toString)
+//                .collect(Collectors.joining());
+//    }
 }

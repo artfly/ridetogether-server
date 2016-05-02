@@ -2,9 +2,7 @@ package io.github.artfly.ridetogether.server.utils;
 
 
 import io.github.artfly.ridetogether.server.exceptions.NotFoundException;
-import io.github.artfly.ridetogether.server.exceptions.UserNotFoundException;
 import io.github.artfly.ridetogether.server.repositories.BaseRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.io.File;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package io.github.artfly.ridetogether.server.convertors;
+package io.github.artfly.ridetogether.server.utils;
 
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -16,7 +16,7 @@ import java.util.*;
 public class RouteConvertor {
     public static class Serializer extends JsonSerializer<Route> {
         @Override
-        public void serialize(Route route, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+        public void serialize(Route route, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
             Map<String, Object> geometry = new HashMap<>();
             Map<String, Object> properties = new HashMap<>();
             Map<String, Object> routeJson = new LinkedHashMap<>();
@@ -50,6 +50,11 @@ public class RouteConvertor {
         public Route deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
             Route route = new Route();
             JsonNode routeNode = jsonParser.getCodec().readTree(jsonParser);
+            //in case if it's only id of route
+            if (!routeNode.has("properties")) {
+                route.setId(routeNode.asLong());
+                return route;
+            }
             JsonNode properties = routeNode.get("properties");
             JsonNode geometry = routeNode.get("geometry");
             JsonNode coordinates = geometry.get("coordinates");

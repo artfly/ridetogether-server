@@ -14,11 +14,9 @@ public class Coordinate {
     @Column(name = "coordinate_id")
     private Long coordinateId;
 
-    @JsonProperty("latitude")
     @Column(name = "latitude", precision = 10, scale = 8)
     private BigDecimal latitude;
 
-    @JsonProperty("longitude")
     @Column(name = "longitude", precision = 11, scale = 8)
     private BigDecimal longitude;
 

@@ -1,11 +1,11 @@
 package io.github.artfly.ridetogether.server.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.github.artfly.ridetogether.server.convertors.RouteConvertor;
+import io.github.artfly.ridetogether.server.utils.RouteConvertor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +19,20 @@ public class Route {
     @Column(name = "route_id")
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String description;
 
-    @NotNull
+    @Column(nullable = false)
     private Double rating;
 
     private Long addedAt = System.currentTimeMillis() / 1000L;
 
+    @JsonProperty("creator_id")
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "creator_id")
     private User creator;
 
     @OneToMany(mappedBy = "route")
@@ -51,6 +53,10 @@ public class Route {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

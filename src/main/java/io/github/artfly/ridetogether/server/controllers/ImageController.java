@@ -2,7 +2,7 @@ package io.github.artfly.ridetogether.server.controllers;
 
 import io.github.artfly.ridetogether.server.RidetogetherServerApplication;
 import io.github.artfly.ridetogether.server.entities.Image;
-import io.github.artfly.ridetogether.server.exceptions.ImageNotFoundException;
+import io.github.artfly.ridetogether.server.exceptions.NotFoundException;
 import io.github.artfly.ridetogether.server.repositories.ImageRepository;
 import io.github.artfly.ridetogether.server.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ImageController {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<?> postImage(@RequestParam("image") MultipartFile image) {
         if (image == null || image.isEmpty()) {
-            throw new ImageNotFoundException("error : image is empty");
+            throw new NotFoundException("error : image is empty");
         }
 
         File file = Utils.generateFile(RidetogetherServerApplication.IMAGES);
