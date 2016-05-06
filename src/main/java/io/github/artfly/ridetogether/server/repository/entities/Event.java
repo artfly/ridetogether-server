@@ -1,10 +1,8 @@
-package io.github.artfly.ridetogether.server.entities;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+package io.github.artfly.ridetogether.server.repository.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Event {
@@ -12,14 +10,12 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    @JsonProperty("route_id")
     @OneToOne
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @JsonProperty("creator_id")
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private User creator;
 
     @Column(nullable = false)
@@ -32,42 +28,40 @@ public class Event {
     @Column(nullable = false)
     private String placeId;
 
-    @JsonProperty("image_path")
     @OneToOne
     @JoinColumn(name = "image_path")
     private Image image;
 
     private Long addedAt = System.currentTimeMillis() / 1000L;
 
-    @JsonProperty("participants")
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<User> participants;
+    @OneToMany
+    @JoinColumn
+    private Set<User> participants = new HashSet<>();
 
-    @JsonProperty("subscribers")
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<User> subscribers;
+    @OneToMany
+    @JoinColumn
+    private Set<User> subscribers = new HashSet<>();
 
-    Event() {
+    Event () {
     }
 
-    public Event(String title, String description, Long date) {
-        this.title = title;
-        this.description = description;
-        this.date = date;
+    public Event(Set<User> participants, Set<User> subscribers, Long id, Long addedAt) {
+        this.participants = participants;
+        this.subscribers = subscribers;
+        this.id = id;
+        this.addedAt = addedAt;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Long getRouteId() {
-        return route.getId();
+    public Route getRoute(){
+        return route;
     }
 
-    public Long getCreatorId() {
-        return creator.getId();
+    public User getCreator() {
+        return creator;
     }
 
     public String getTitle() {
@@ -82,19 +76,19 @@ public class Event {
         return date;
     }
 
-    public String getImagePath() {
-        return image.getImagePath();
+    public Image getImage() {
+        return image;
     }
 
     public Long getAddedAt() {
         return addedAt;
     }
 
-    public List<User> getParticipants() {
+    public Set<User> getParticipants() {
         return participants;
     }
 
-    public List<User> getSubscribers() {
+    public Set<User> getSubscribers() {
         return subscribers;
     }
 
@@ -104,14 +98,6 @@ public class Event {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
     }
 
     public void setRoute(Route route) {
@@ -130,19 +116,30 @@ public class Event {
         this.image = image;
     }
 
-    public void setAddedAt(Long addedAt) {
-        this.addedAt = addedAt;
-    }
+//    public void setSubscribers(Set<User> subscribers) {
+//        this.subscribers = subscribers;
+//    }
 
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
-    }
 
-    public void setSubscribers(List<User> subscribers) {
-        this.subscribers = subscribers;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public void setPlaceId(String placeId) {
         this.placeId = placeId;
+    }
+
+    public void addSubscriber(User subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void addParticipant(User participant) {
+        participants.add(participant);
+    }
+
+    public void removeSubscriberOrParticipant(Long userId) {
+        if (!subscribers.removeIf(sub -> sub.getId().equals(userId))) {
+            participants.removeIf(sub -> sub.getId().equals(userId));
+        }
     }
 }

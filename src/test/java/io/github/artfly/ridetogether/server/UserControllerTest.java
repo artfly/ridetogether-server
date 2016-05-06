@@ -1,9 +1,9 @@
 package io.github.artfly.ridetogether.server;
 
-import io.github.artfly.ridetogether.server.entities.Image;
-import io.github.artfly.ridetogether.server.entities.User;
-import io.github.artfly.ridetogether.server.repositories.ImageRepository;
-import io.github.artfly.ridetogether.server.repositories.UserRepository;
+import io.github.artfly.ridetogether.server.repository.entities.Image;
+import io.github.artfly.ridetogether.server.repository.entities.User;
+import io.github.artfly.ridetogether.server.repository.ImageRepository;
+import io.github.artfly.ridetogether.server.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,6 @@ import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;

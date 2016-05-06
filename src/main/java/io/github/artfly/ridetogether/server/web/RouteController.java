@@ -1,15 +1,13 @@
-package io.github.artfly.ridetogether.server.controllers;
+package io.github.artfly.ridetogether.server.web;
 
-import io.github.artfly.ridetogether.server.entities.Route;
-import io.github.artfly.ridetogether.server.repositories.RouteRepository;
-import io.github.artfly.ridetogether.server.repositories.UserRepository;
+import io.github.artfly.ridetogether.server.repository.entities.Route;
+import io.github.artfly.ridetogether.server.repository.RouteRepository;
+import io.github.artfly.ridetogether.server.repository.UserRepository;
 import io.github.artfly.ridetogether.server.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 
 // TODO : add comments

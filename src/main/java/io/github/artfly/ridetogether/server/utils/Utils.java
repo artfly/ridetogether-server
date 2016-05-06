@@ -1,8 +1,8 @@
 package io.github.artfly.ridetogether.server.utils;
 
 
-import io.github.artfly.ridetogether.server.exceptions.NotFoundException;
-import io.github.artfly.ridetogether.server.repositories.BaseRepository;
+import io.github.artfly.ridetogether.server.service.exceptions.NotFoundException;
+import io.github.artfly.ridetogether.server.repository.BaseRepository;
 
 import java.io.File;
 import java.io.Serializable;

@@ -1,8 +1,7 @@
 package io.github.artfly.ridetogether.server;
 
-import io.github.artfly.ridetogether.server.exceptions.NotFoundException;
-import io.github.artfly.ridetogether.server.repositories.ImageRepository;
-import io.github.artfly.ridetogether.server.entities.Image;
+import io.github.artfly.ridetogether.server.repository.ImageRepository;
+import io.github.artfly.ridetogether.server.repository.entities.Image;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

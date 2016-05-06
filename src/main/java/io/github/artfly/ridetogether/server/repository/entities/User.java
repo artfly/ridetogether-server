@@ -1,12 +1,8 @@
-package io.github.artfly.ridetogether.server.entities;
+package io.github.artfly.ridetogether.server.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Entity
 public class User {
@@ -59,8 +55,8 @@ public class User {
         return id;
     }
 
-    public String getImage() {
-        return image.getImagePath();
+    public Image getImage() {
+        return image;
     }
 
     public String getPlaceId() {
@@ -106,12 +102,4 @@ public class User {
     public void setBikeModel(String bikeModel) {
         this.bikeModel = bikeModel;
     }
-
-//    @Override
-//    public String toString() {
-//        return Arrays.asList(getClass().getFields())
-//                .stream()
-//                .map(Field::toString)
-//                .collect(Collectors.joining());
-//    }
 }

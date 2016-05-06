@@ -1,4 +1,4 @@
-package io.github.artfly.ridetogether.server.exceptions;
+package io.github.artfly.ridetogether.server.service.exceptions;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String id) {

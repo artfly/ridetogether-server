@@ -1,16 +1,14 @@
-package io.github.artfly.ridetogether.server.controllers;
+package io.github.artfly.ridetogether.server.web;
 
-import io.github.artfly.ridetogether.server.entities.Route;
-import io.github.artfly.ridetogether.server.entities.User;
-import io.github.artfly.ridetogether.server.repositories.ImageRepository;
-import io.github.artfly.ridetogether.server.repositories.UserRepository;
+import io.github.artfly.ridetogether.server.repository.entities.User;
+import io.github.artfly.ridetogether.server.repository.ImageRepository;
+import io.github.artfly.ridetogether.server.repository.UserRepository;
 import io.github.artfly.ridetogether.server.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/users")
@@ -24,10 +22,10 @@ public class UserController {
         this.imageRepository = imageRepository;
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<User> postUser(@RequestBody User user) {
-        System.out.println(user);
-        Utils.validate(user.getImage(), imageRepository);
+        Utils.validate(user.getImage().getImagePath(), imageRepository);
         return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
@@ -37,13 +35,14 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findOne(userId), HttpStatus.OK);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
     ResponseEntity<HttpStatus> updateUser(@PathVariable Long userId, @RequestBody User user) {
         Utils.validate(userId, userRepository);
-        Utils.validate(user.getImage(), imageRepository);
+        Utils.validate(user.getImage().getImagePath(), imageRepository);
         User dbUser = userRepository.findOne(userId);
         dbUser.setBikeModel(user.getBikeModel());
-        dbUser.setImage(imageRepository.getOne(user.getImage()));
+        dbUser.setImage(imageRepository.getOne(user.getImage().getImagePath()));
         dbUser.setPassword(user.getPassword());
         dbUser.setPlaceId(user.getPlaceId());
         dbUser.setRouteType(user.getRouteType());

@@ -1,4 +1,4 @@
-package io.github.artfly.ridetogether.server.entities;
+package io.github.artfly.ridetogether.server.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

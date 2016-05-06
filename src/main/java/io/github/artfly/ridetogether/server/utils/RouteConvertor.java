@@ -3,11 +3,10 @@ package io.github.artfly.ridetogether.server.utils;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
-import io.github.artfly.ridetogether.server.entities.Coordinate;
-import io.github.artfly.ridetogether.server.entities.Route;
-import io.github.artfly.ridetogether.server.entities.User;
+import io.github.artfly.ridetogether.server.repository.entities.Coordinate;
+import io.github.artfly.ridetogether.server.repository.entities.Route;
+import io.github.artfly.ridetogether.server.repository.entities.User;
 
 import java.io.IOException;
 import java.math.BigDecimal;

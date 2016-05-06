@@ -1,11 +1,10 @@
 package io.github.artfly.ridetogether.server;
 
-import io.github.artfly.ridetogether.server.entities.Event;
-import io.github.artfly.ridetogether.server.entities.Image;
-import io.github.artfly.ridetogether.server.entities.User;
-import io.github.artfly.ridetogether.server.repositories.EventRepository;
-import io.github.artfly.ridetogether.server.repositories.ImageRepository;
-import io.github.artfly.ridetogether.server.repositories.UserRepository;
+import io.github.artfly.ridetogether.server.repository.entities.Image;
+import io.github.artfly.ridetogether.server.repository.entities.User;
+import io.github.artfly.ridetogether.server.repository.EventRepository;
+import io.github.artfly.ridetogether.server.repository.ImageRepository;
+import io.github.artfly.ridetogether.server.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class EventControllerTest {
     private MockMvc mockMvc;
     private static final String EVENT_PATH = "/events";
     private User user = new User("Arty", "12345", "42", "RockyRoad", "tricycle");
-    private Event event = new Event("Hello", "World", 2435345L);
+//    private Event event = new Event("Hello", "World", 2435345L);
     private Image image = new Image("123", BigDecimal.ONE, BigDecimal.ONE);
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),

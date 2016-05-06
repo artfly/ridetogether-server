@@ -1,7 +1,6 @@
-package io.github.artfly.ridetogether.server.entities;
+package io.github.artfly.ridetogether.server.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

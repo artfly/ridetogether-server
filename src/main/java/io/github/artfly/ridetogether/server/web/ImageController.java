@@ -1,9 +1,9 @@
-package io.github.artfly.ridetogether.server.controllers;
+package io.github.artfly.ridetogether.server.web;
 
 import io.github.artfly.ridetogether.server.RidetogetherServerApplication;
-import io.github.artfly.ridetogether.server.entities.Image;
-import io.github.artfly.ridetogether.server.exceptions.NotFoundException;
-import io.github.artfly.ridetogether.server.repositories.ImageRepository;
+import io.github.artfly.ridetogether.server.repository.entities.Image;
+import io.github.artfly.ridetogether.server.service.exceptions.NotFoundException;
+import io.github.artfly.ridetogether.server.repository.ImageRepository;
 import io.github.artfly.ridetogether.server.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
