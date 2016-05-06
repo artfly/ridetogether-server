@@ -8,7 +8,7 @@ public class ImageDto {
     private String imagePath;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private UserDto creator;
+    private Long creatorId;
 
     ImageDto() {
     }
@@ -41,11 +41,11 @@ public class ImageDto {
         this.longitude = longitude;
     }
 
-    public UserDto getCreator() {
-        return creator;
+    public Long getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator(UserDto creator) {
-        this.creator = creator;
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
     }
 }

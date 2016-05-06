@@ -2,8 +2,8 @@ package io.github.artfly.ridetogether.server.service;
 
 import io.github.artfly.ridetogether.server.RidetogetherServerApplication;
 import io.github.artfly.ridetogether.server.repository.ImageRepository;
-import io.github.artfly.ridetogether.server.repository.UserRepository;
 import io.github.artfly.ridetogether.server.repository.entities.Image;
+import io.github.artfly.ridetogether.server.service.exceptions.AuthorizeException;
 import io.github.artfly.ridetogether.server.service.exceptions.NotFoundException;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
 import io.github.artfly.ridetogether.server.utils.Utils;
@@ -20,13 +20,11 @@ import java.io.*;
 @Service
 public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
-    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
     @Autowired
-    ImageServiceImpl(ImageRepository imageRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    ImageServiceImpl(ImageRepository imageRepository, ModelMapper modelMapper) {
         this.imageRepository = imageRepository;
-        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -44,20 +42,26 @@ public class ImageServiceImpl implements ImageService {
         } catch (IOException e) {
             return null;
         }
-        return new ImageDto(file.getName());
+        return new ImageDto(file.getPath());
     }
 
     @Override
     public FileSystemResource getImageFile(String imagePath) {
-        return new FileSystemResource(new File(RidetogetherServerApplication.IMAGES, imagePath));
+        File file = new File(RidetogetherServerApplication.IMAGES, imagePath);
+        if (!file.exists()) {
+            throw new NotFoundException(imagePath);
+        }
+        return new FileSystemResource(file);
     }
 
     @Override
+    public ImageDto getImage(String imagePath) {
+        return modelMapper.map(Utils.validate(imagePath, imageRepository), ImageDto.class);
+    }
+
+    //TODO : trigger on new creator, rollback
+    @Override
     public ImageDto addImage(CurrentUser currentUser, ImageDto imageDto) {
-        File file = new File(RidetogetherServerApplication.IMAGES, imageDto.getImagePath());
-        if (!file.exists()) {
-            throw new NotFoundException(imageDto.getImagePath());
-        }
         Image image = modelMapper.map(imageDto, Image.class);
         image.setCreator(currentUser.getUser());
         imageRepository.save(image);
@@ -65,7 +69,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageDto getCoordinates(String imagePath) {
-        return modelMapper.map(Utils.validate(imagePath, imageRepository), ImageDto.class);
+    public void updateCoordinates(CurrentUser currentUser, ImageDto imageDto) {
+        Image image = Utils.validate(imageDto.getImagePath(), imageRepository);
+        if(!currentUser.getUsername().equals(image.getCreator().getUsername())) {
+            throw new AuthorizeException(currentUser.getUser().getUsername());
+        }
+        image.setLongitude(imageDto.getLongitude());
+        image.setLatitude(imageDto.getLatitude());
+        imageRepository.save(image);
     }
 }
