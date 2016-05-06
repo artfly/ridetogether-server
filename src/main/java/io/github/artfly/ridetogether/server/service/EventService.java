@@ -2,7 +2,7 @@ package io.github.artfly.ridetogether.server.service;
 
 
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
-import io.github.artfly.ridetogether.server.web.dto.EventDto;
+import io.github.artfly.ridetogether.server.web.dto.event.EventDto;
 
 import java.util.List;
 

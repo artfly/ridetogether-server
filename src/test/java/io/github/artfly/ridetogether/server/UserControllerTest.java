@@ -64,57 +64,57 @@ public class UserControllerTest {
                 this.mappingJackson2HttpMessageConverter);
     }
 
-    @Before
-    public void setup() {
-        mockMvc = webAppContextSetup(ctx).build();
-        imageRepository.save(image);
-        user.setImage(image);
-        dbUser.setImage(image);
-        dbUser.setId(userRepository.save(dbUser).getId());
-    }
-
-    @Test
-    public void addUser() throws Exception {
-        mockMvc.perform(post(USER_PATH)
-                .content(json(user))
-                .contentType(contentType))
-                .andExpect(jsonPath("$.username", is(user.getUsername())))
-                .andExpect(jsonPath("$.password", is(user.getPassword())))
-                .andExpect(jsonPath("$.bike_model", is(user.getBikeModel())))
-                .andExpect(jsonPath("$.route_type", is(user.getRouteType())))
-                .andExpect(jsonPath("$.place_id", is(user.getPlaceId())));
-    }
-
-    @Test
-    public void getUser() throws Exception {
-        mockMvc.perform(get(USER_PATH + "/" + dbUser.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.username", is(dbUser.getUsername())))
-                .andExpect(jsonPath("$.password", is(dbUser.getPassword())))
-                .andExpect(jsonPath("$.bike_model", is(dbUser.getBikeModel())))
-                .andExpect(jsonPath("$.route_type", is(dbUser.getRouteType())))
-                .andExpect(jsonPath("$.place_id", is(dbUser.getPlaceId())));
-    }
-
-    @Test
-    public void updateUser() throws Exception {
-        dbUser.setRouteType("RockyRoad");
-        mockMvc.perform(put(USER_PATH + "/" + dbUser.getId())
-                        .content(json(dbUser))
-                        .contentType(contentType))
-                        .andExpect(status().isNoContent());
-
-        mockMvc.perform(get(USER_PATH + "/" + dbUser.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.route_type", is(dbUser.getRouteType())));
-    }
-
-    protected String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
-    }
+//    @Before
+//    public void setup() {
+//        mockMvc = webAppContextSetup(ctx).build();
+//        imageRepository.save(image);
+//        user.setImage(image);
+//        dbUser.setImage(image);
+//        dbUser.setId(userRepository.save(dbUser).getId());
+//    }
+//
+//    @Test
+//    public void addUser() throws Exception {
+//        mockMvc.perform(post(USER_PATH)
+//                .content(json(user))
+//                .contentType(contentType))
+//                .andExpect(jsonPath("$.username", is(user.getUsername())))
+//                .andExpect(jsonPath("$.password", is(user.getPassword())))
+//                .andExpect(jsonPath("$.bike_model", is(user.getBikeModel())))
+//                .andExpect(jsonPath("$.route_type", is(user.getRouteType())))
+//                .andExpect(jsonPath("$.place_id", is(user.getPlaceId())));
+//    }
+//
+//    @Test
+//    public void getUser() throws Exception {
+//        mockMvc.perform(get(USER_PATH + "/" + dbUser.getId()))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$.username", is(dbUser.getUsername())))
+//                .andExpect(jsonPath("$.password", is(dbUser.getPassword())))
+//                .andExpect(jsonPath("$.bike_model", is(dbUser.getBikeModel())))
+//                .andExpect(jsonPath("$.route_type", is(dbUser.getRouteType())))
+//                .andExpect(jsonPath("$.place_id", is(dbUser.getPlaceId())));
+//    }
+//
+//    @Test
+//    public void updateUser() throws Exception {
+//        dbUser.setRouteType("RockyRoad");
+//        mockMvc.perform(put(USER_PATH + "/" + dbUser.getId())
+//                        .content(json(dbUser))
+//                        .contentType(contentType))
+//                        .andExpect(status().isNoContent());
+//
+//        mockMvc.perform(get(USER_PATH + "/" + dbUser.getId()))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$.route_type", is(dbUser.getRouteType())));
+//    }
+//
+//    protected String json(Object o) throws IOException {
+//        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+//        mappingJackson2HttpMessageConverter.write(
+//                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+//        return mockHttpOutputMessage.getBodyAsString();
+//    }
 }

@@ -38,4 +38,10 @@ public class RidetogetherServerApplication extends SpringBootServletInitializer 
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(RidetogetherServerApplication.class);
 	}
+
+
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 }

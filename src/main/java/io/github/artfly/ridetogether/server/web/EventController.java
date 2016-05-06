@@ -3,7 +3,7 @@ package io.github.artfly.ridetogether.server.web;
 import io.github.artfly.ridetogether.server.service.EventService;
 import io.github.artfly.ridetogether.server.service.SubscribeService;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
-import io.github.artfly.ridetogether.server.web.dto.EventDto;
+import io.github.artfly.ridetogether.server.web.dto.event.EventDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +50,7 @@ public class EventController {
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "{eventId}", method = RequestMethod.DELETE)
-    ResponseEntity<HttpStatus> deleteEvent(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long eventId) {
+    public ResponseEntity<HttpStatus> deleteEvent(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long eventId) {
         eventService.deleteEvent(currentUser, eventId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,4 +1,4 @@
-package io.github.artfly.ridetogether.server.web.dto;
+package io.github.artfly.ridetogether.server.web.dto.event;
 
 
 public class UserDto {

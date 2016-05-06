@@ -2,10 +2,7 @@ package io.github.artfly.ridetogether.server.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -21,6 +18,18 @@ public class Image {
 
     @Column(name = "longitude", precision = 11, scale = 8)
     private BigDecimal longitude;
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "creator_id", updatable = false)
+    private User creator;
 
     Image() {
     }

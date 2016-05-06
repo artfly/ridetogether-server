@@ -8,15 +8,13 @@ import io.github.artfly.ridetogether.server.repository.entities.Event;
 import io.github.artfly.ridetogether.server.repository.entities.User;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
 import io.github.artfly.ridetogether.server.utils.Utils;
-import io.github.artfly.ridetogether.server.web.dto.EventDto;
+import io.github.artfly.ridetogether.server.web.dto.event.EventDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -27,20 +25,15 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final RouteRepository routeRepository;
     private final ImageRepository imageRepository;
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+    private final ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    public EventServiceImpl(EventRepository eventRepository, RouteRepository routeRepository, ImageRepository imageRepository) {
+    public EventServiceImpl(EventRepository eventRepository, RouteRepository routeRepository,
+                            ImageRepository imageRepository, ModelMapper modelMapper) {
         this.eventRepository = eventRepository;
         this.routeRepository = routeRepository;
         this.imageRepository = imageRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override

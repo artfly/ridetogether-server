@@ -1,5 +1,6 @@
 package io.github.artfly.ridetogether.server.repository.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -47,10 +48,6 @@ public class User {
         this.bikeModel = bikeModel;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
     }
@@ -79,6 +76,7 @@ public class User {
         return username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -101,5 +99,9 @@ public class User {
 
     public void setBikeModel(String bikeModel) {
         this.bikeModel = bikeModel;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

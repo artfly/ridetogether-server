@@ -1,52 +1,41 @@
 package io.github.artfly.ridetogether.server.web;
 
-import io.github.artfly.ridetogether.server.repository.entities.User;
-import io.github.artfly.ridetogether.server.repository.ImageRepository;
-import io.github.artfly.ridetogether.server.repository.UserRepository;
-import io.github.artfly.ridetogether.server.utils.Utils;
+import io.github.artfly.ridetogether.server.service.UserService;
+import io.github.artfly.ridetogether.server.service.security.CurrentUser;
+import io.github.artfly.ridetogether.server.web.dto.user.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserRepository userRepository;
-    private final ImageRepository imageRepository;
+    private final UserService userService;
 
     @Autowired
-    UserController(UserRepository userRepository, ImageRepository imageRepository) {
-        this.userRepository = userRepository;
-        this.imageRepository = imageRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PreAuthorize("isAnonymous()")
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<User> postUser(@RequestBody User user) {
-        Utils.validate(user.getImage().getImagePath(), imageRepository);
-        return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+    public ResponseEntity<UserDto> postUser(@RequestBody UserDto user) {
+        return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "{userId}", method = RequestMethod.GET)
-    ResponseEntity<User> getUser(@PathVariable Long userId) {
-        Utils.validate(userId, userRepository);
-        return new ResponseEntity<>(userRepository.findOne(userId), HttpStatus.OK);
+    public ResponseEntity<UserDto> getUser(@PathVariable Long userId) {
+        return new ResponseEntity<>(userService.getUser(userId), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "{userId}", method = RequestMethod.PUT)
-    ResponseEntity<HttpStatus> updateUser(@PathVariable Long userId, @RequestBody User user) {
-        Utils.validate(userId, userRepository);
-        Utils.validate(user.getImage().getImagePath(), imageRepository);
-        User dbUser = userRepository.findOne(userId);
-        dbUser.setBikeModel(user.getBikeModel());
-        dbUser.setImage(imageRepository.getOne(user.getImage().getImagePath()));
-        dbUser.setPassword(user.getPassword());
-        dbUser.setPlaceId(user.getPlaceId());
-        dbUser.setRouteType(user.getRouteType());
-        userRepository.save(dbUser);
+    ResponseEntity<HttpStatus> updateUser(@AuthenticationPrincipal CurrentUser currentUser,
+                                          @PathVariable Long userId, @RequestBody UserDto user) {
+        userService.updateUser(currentUser, user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
