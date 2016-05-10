@@ -7,7 +7,7 @@ import io.github.artfly.ridetogether.server.repository.entities.User;
 import io.github.artfly.ridetogether.server.service.exceptions.AuthorizeException;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
 import io.github.artfly.ridetogether.server.utils.Utils;
-import io.github.artfly.ridetogether.server.web.dto.user.UserDto;
+import io.github.artfly.ridetogether.server.web.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

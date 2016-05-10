@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Images")
 public class Image {
     @Id
     @JsonProperty("image_path")
@@ -19,16 +18,8 @@ public class Image {
     @Column(name = "longitude", precision = 11, scale = 8)
     private BigDecimal longitude;
 
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
     @OneToOne
-    @JoinColumn(name = "creator_id", updatable = false)
+    @JoinColumn
     private User creator;
 
     Image() {
@@ -52,8 +43,16 @@ public class Image {
         return longitude;
     }
 
-    public String getImagePath() {
+    String getImagePath() {
         return id;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public void setLatitude(BigDecimal latitude) {

@@ -1,7 +1,5 @@
 package io.github.artfly.ridetogether.server.web.dto;
 
-import io.github.artfly.ridetogether.server.web.dto.event.UserDto;
-
 import java.math.BigDecimal;
 
 public class ImageDto {

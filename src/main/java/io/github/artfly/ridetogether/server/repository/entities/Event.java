@@ -25,20 +25,17 @@ public class Event {
 
     private Long date;
 
-    @Column(nullable = false)
-    private String placeId;
-
     @OneToOne
     @JoinColumn(name = "image_path")
     private Image image;
 
     private Long addedAt = System.currentTimeMillis() / 1000L;
 
-    @OneToMany
+    @ManyToMany
     @JoinColumn
     private Set<User> participants = new HashSet<>();
 
-    @OneToMany
+    @ManyToMany
     @JoinColumn
     private Set<User> subscribers = new HashSet<>();
 
@@ -92,10 +89,6 @@ public class Event {
         return subscribers;
     }
 
-    public String getPlaceId() {
-        return placeId;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -123,10 +116,6 @@ public class Event {
 
     public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
     }
 
     public void addSubscriber(User subscriber) {

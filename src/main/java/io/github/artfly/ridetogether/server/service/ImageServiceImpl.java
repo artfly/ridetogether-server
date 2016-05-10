@@ -42,7 +42,8 @@ public class ImageServiceImpl implements ImageService {
         } catch (IOException e) {
             return null;
         }
-        return new ImageDto(file.getPath());
+        imageRepository.save(new Image(file.getName(), null, null));
+        return new ImageDto(file.getName());
     }
 
     @Override
@@ -59,21 +60,23 @@ public class ImageServiceImpl implements ImageService {
         return modelMapper.map(Utils.validate(imagePath, imageRepository), ImageDto.class);
     }
 
-    //TODO : trigger on new creator, rollback
     @Override
-    public ImageDto addImage(CurrentUser currentUser, ImageDto imageDto) {
-        Image image = modelMapper.map(imageDto, Image.class);
-        image.setCreator(currentUser.getUser());
+    public ImageDto addCoordinates(CurrentUser currentUser, ImageDto imageDto) {
+        Image image = Utils.validate(imageDto.getImagePath(), imageRepository);
+        if (image.getCreator() == null) {
+            image.setCreator(currentUser.getUser());
+        } else if (!image.getCreator().getUsername().equals(currentUser.getUsername())) {
+            throw new AuthorizeException(currentUser.getUsername());
+        }
+        image.setLatitude(imageDto.getLatitude());
+        image.setLongitude(imageDto.getLongitude());
         imageRepository.save(image);
         return modelMapper.map(image, ImageDto.class);
     }
 
     @Override
-    public void updateCoordinates(CurrentUser currentUser, ImageDto imageDto) {
+    public void updateCoordinates(ImageDto imageDto) {
         Image image = Utils.validate(imageDto.getImagePath(), imageRepository);
-        if(!currentUser.getUsername().equals(image.getCreator().getUsername())) {
-            throw new AuthorizeException(currentUser.getUser().getUsername());
-        }
         image.setLongitude(imageDto.getLongitude());
         image.setLatitude(imageDto.getLatitude());
         imageRepository.save(image);

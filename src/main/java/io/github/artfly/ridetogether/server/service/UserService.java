@@ -1,7 +1,7 @@
 package io.github.artfly.ridetogether.server.service;
 
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
-import io.github.artfly.ridetogether.server.web.dto.user.UserDto;
+import io.github.artfly.ridetogether.server.web.dto.UserDto;
 
 public interface UserService {
     UserDto addUser(UserDto userDto);

@@ -2,7 +2,7 @@ package io.github.artfly.ridetogether.server.web;
 
 import io.github.artfly.ridetogether.server.service.UserService;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
-import io.github.artfly.ridetogether.server.web.dto.user.UserDto;
+import io.github.artfly.ridetogether.server.web.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

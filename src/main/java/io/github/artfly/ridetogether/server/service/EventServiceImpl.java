@@ -48,13 +48,13 @@ public class EventServiceImpl implements EventService {
         }
 
         if (since != null && routeType != null) {
-            events = eventRepository.findByDateLessThanAndPlaceIdEqualsAndRoute_RouteTypeEquals(since, place, routeType, pageable);
+            events = eventRepository.findByDateLessThanAndRoute_PlaceIdEqualsAndRoute_RouteTypeEquals(since, place, routeType, pageable);
         } else if (since != null) {
-            events = eventRepository.findByDateLessThanAndPlaceIdEquals(since, place, pageable);
+            events = eventRepository.findByDateLessThanAndRoute_PlaceIdEquals(since, place, pageable);
         } else if (routeType != null) {
-            events = eventRepository.findByRoute_RouteTypeEqualsAndPlaceIdEquals(routeType, place, pageable);
+            events = eventRepository.findByRoute_RouteTypeEqualsAndRoute_PlaceIdEquals(routeType, place, pageable);
         } else {
-            events = eventRepository.findByPlaceIdEquals(place, pageable);
+            events = eventRepository.findByRoute_PlaceIdEquals(place, pageable);
         }
         return modelMapper.map(events, eventDtoType);
     }
@@ -87,7 +87,6 @@ public class EventServiceImpl implements EventService {
         event.setTitle(eventDto.getTitle());
         event.setDescription(eventDto.getDescription());
         event.setDate(eventDto.getDate());
-        event.setPlaceId(eventDto.getPlaceId());
         eventRepository.save(event);
     }
 

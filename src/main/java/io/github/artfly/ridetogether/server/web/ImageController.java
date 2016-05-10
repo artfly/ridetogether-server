@@ -22,7 +22,6 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PreAuthorize("isAuthenticated()")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ImageDto> loadFile(@RequestParam("image") MultipartFile image) {
         ImageDto imageDto = imageService.addImageFile(image);
@@ -33,10 +32,10 @@ public class ImageController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "{imagePath}/coordinates",method = RequestMethod.POST)
-    public ResponseEntity<ImageDto> postImage(@AuthenticationPrincipal CurrentUser currentUser,
-                                              @PathVariable String imagePath, @RequestBody ImageDto imageDto) {
-        return new ResponseEntity<>(imageService.addImage(currentUser, imageDto), HttpStatus.CREATED);
+    @RequestMapping(value = "{imagePath}/coordinates",method = RequestMethod.PUT)
+    public ResponseEntity<ImageDto> addCoordinates(@AuthenticationPrincipal CurrentUser currentUser,
+                                                    @PathVariable String imagePath, @RequestBody ImageDto imageDto) {
+        return new ResponseEntity<>(imageService.addCoordinates(currentUser, imageDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{imagePath}/coordinates", method = RequestMethod.GET)

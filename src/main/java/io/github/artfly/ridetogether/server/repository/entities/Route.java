@@ -6,13 +6,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.github.artfly.ridetogether.server.utils.RouteConvertor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Routes")
-@JsonSerialize(using = RouteConvertor.Serializer.class)
-@JsonDeserialize(using = RouteConvertor.Deserializer.class)
+//@JsonSerialize(using = RouteConvertor.Serializer.class)
+//@JsonDeserialize(using = RouteConvertor.Deserializer.class)
 public class Route {
     @Id
     @GeneratedValue
@@ -28,6 +31,9 @@ public class Route {
     @Column(nullable = false)
     private Double rating;
 
+    @Column(nullable = false)
+    private String placeId;
+
     private Long addedAt = System.currentTimeMillis() / 1000L;
 
     @JsonProperty("creator_id")
@@ -35,7 +41,8 @@ public class Route {
     @JoinColumn(name = "creator_id")
     private User creator;
 
-    @OneToMany(mappedBy = "route")
+//    @OneToMany(mappedBy = "route")
+    @OneToMany
     private List<Coordinate> coordinates = new ArrayList<>();
 
     private String routeType;
@@ -83,8 +90,22 @@ public class Route {
         return routeType;
     }
 
-    public List<Coordinate> getCoordinates() {
+    public List<List<BigDecimal>> getCoordinates() {
+        return coordinates.stream()
+                .map(coordinate -> Arrays.asList(coordinate.getLatitude(), coordinate.getLongitude()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Coordinate> getDbCoordinates() {
         return coordinates;
+    }
+
+    public String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public void setTitle(String title) {
@@ -113,5 +134,11 @@ public class Route {
 
     public void addCoordinate(Coordinate coordinate) {
         coordinates.add(coordinate);
+    }
+
+    public void setCoordinates(List<List<BigDecimal>> coordinates) {
+        this.coordinates = coordinates.stream()
+                .map(decimals -> new Coordinate(decimals.get(0), decimals.get(1)))
+                .collect(Collectors.toList());
     }
 }

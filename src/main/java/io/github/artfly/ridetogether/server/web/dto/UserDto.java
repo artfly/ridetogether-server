@@ -1,4 +1,4 @@
-package io.github.artfly.ridetogether.server.web.dto.user;
+package io.github.artfly.ridetogether.server.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -9,7 +9,6 @@ public class EventDto {
     private Long routeId;
     private String title;
     private Long date;
-    private String placeId;
     private String description;
     private Long creatorId;
     private String imagePath;
@@ -17,15 +16,6 @@ public class EventDto {
     private Set<UserDto> subscribers;
 
     EventDto() {
-    }
-
-    public EventDto(Long routeId, String title, Long date, String placeId, String description, String imagePath) {
-        this.routeId = routeId;
-        this.title = title;
-        this.date = date;
-        this.placeId = placeId;
-        this.description = description;
-        this.imagePath = imagePath;
     }
 
     public Long getId() {
@@ -66,14 +56,6 @@ public class EventDto {
 
     public void setDate(Long date) {
         this.date = date;
-    }
-
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
     }
 
     public String getDescription() {

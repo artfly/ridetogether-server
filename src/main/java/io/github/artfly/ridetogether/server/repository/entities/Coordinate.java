@@ -1,49 +1,55 @@
 package io.github.artfly.ridetogether.server.repository.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Coordinates")
 public class Coordinate {
     @Id
     @GeneratedValue
     @Column(name = "coordinate_id")
-    private Long coordinateId;
+    private Long id;
 
-    @Column(name = "latitude", precision = 10, scale = 8)
-    private BigDecimal latitude;
+    private String latitude;
 
-    @Column(name = "longitude", precision = 11, scale = 8)
-    private BigDecimal longitude;
-
-    @JsonIgnore
-    @ManyToOne
-    private Route route;
+    private String longitude;
 
     Coordinate() {
     }
 
-    public Coordinate(String latitude, String longitude) {
-        this.latitude = new BigDecimal(latitude);
-        this.longitude = new BigDecimal(longitude);
+    Coordinate(BigDecimal latitude, BigDecimal longitude) {
+        this.latitude = latitude.toString();
+        this.longitude = longitude.toString();
+    }
+//
+//    @JsonIgnore
+//    @ManyToOne
+//    private Route route;
+
+    public Long getId() {
+        return id;
     }
 
-    public BigDecimal getLatitude() {
-        return latitude;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    BigDecimal getLatitude() {
+        return new BigDecimal(latitude);
     }
 
     public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
+        this.latitude = latitude.toString();
     }
 
-    public BigDecimal getLongitude() {
-        return longitude;
+    BigDecimal getLongitude() {
+        return new BigDecimal(longitude);
     }
 
     public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
+        this.longitude = longitude.toString();
     }
 }
