@@ -39,7 +39,7 @@ public class Event {
     @JoinColumn
     private Set<User> subscribers = new HashSet<>();
 
-    Event () {
+    Event() {
     }
 
     public Event(Set<User> participants, Set<User> subscribers, Long id, Long addedAt) {
@@ -53,28 +53,52 @@ public class Event {
         return id;
     }
 
-    public Route getRoute(){
+    public Route getRoute() {
         return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
     public User getCreator() {
         return creator;
     }
 
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Long getDate() {
         return date;
     }
 
+    public void setDate(Long date) {
+        this.date = date;
+    }
+
     public Image getImage() {
         return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public Long getAddedAt() {
@@ -85,37 +109,12 @@ public class Event {
         return participants;
     }
 
-    public Set<User> getSubscribers() {
-        return subscribers;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-
-    public void setDate(Long date) {
-        this.date = date;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
 //    public void setSubscribers(Set<User> subscribers) {
 //        this.subscribers = subscribers;
 //    }
 
-
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public Set<User> getSubscribers() {
+        return subscribers;
     }
 
     public void addSubscriber(User subscriber) {

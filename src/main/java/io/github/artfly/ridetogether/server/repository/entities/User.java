@@ -33,7 +33,7 @@ public class User {
 
     private Long registeredAt = System.currentTimeMillis() / 1000L;
 
-    User () {
+    User() {
     }
 
     public User(Long id) {
@@ -56,16 +56,32 @@ public class User {
         return image;
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public String getPlaceId() {
         return placeId;
+    }
+
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
 
     public String getRouteType() {
         return routeType;
     }
 
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
     public String getBikeModel() {
         return bikeModel;
+    }
+
+    public void setBikeModel(String bikeModel) {
+        this.bikeModel = bikeModel;
     }
 
     public Long getRegisteredAt() {
@@ -76,6 +92,10 @@ public class User {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @JsonIgnore
     public String getPassword() {
         return password;
@@ -83,25 +103,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
-    }
-
-    public void setRouteType(String routeType) {
-        this.routeType = routeType;
-    }
-
-    public void setBikeModel(String bikeModel) {
-        this.bikeModel = bikeModel;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CommentService {
     List<CommentDto> getComments(Long routeId, Integer count, Long since);
+
     CommentDto addComment(CurrentUser currentUser, Long routeId, CommentDto commentDto);
+
     void deleteComment(CurrentUser currentUser, Long commentId);
 }

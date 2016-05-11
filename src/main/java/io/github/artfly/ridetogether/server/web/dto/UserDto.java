@@ -1,6 +1,5 @@
 package io.github.artfly.ridetogether.server.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDto {
@@ -14,15 +13,15 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    UserDto() {
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    UserDto() {
     }
 
     public Long getId() {

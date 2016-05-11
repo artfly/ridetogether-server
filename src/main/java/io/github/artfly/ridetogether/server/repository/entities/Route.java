@@ -1,9 +1,6 @@
 package io.github.artfly.ridetogether.server.repository.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.github.artfly.ridetogether.server.utils.RouteConvertor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,8 +11,6 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Routes")
-//@JsonSerialize(using = RouteConvertor.Serializer.class)
-//@JsonDeserialize(using = RouteConvertor.Deserializer.class)
 public class Route {
     @Id
     @GeneratedValue
@@ -41,7 +36,7 @@ public class Route {
     @JoinColumn(name = "creator_id")
     private User creator;
 
-//    @OneToMany(mappedBy = "route")
+    //    @OneToMany(mappedBy = "route")
     @OneToMany
     private List<Coordinate> coordinates = new ArrayList<>();
 
@@ -70,29 +65,59 @@ public class Route {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getRating() {
         return rating;
     }
 
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
     public Long getAddedAt() {
         return addedAt;
+    }
+
+    public void setAddedAt(Long addedAt) {
+        this.addedAt = addedAt;
     }
 
     public User getCreator() {
         return creator;
     }
 
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
     public String getRouteType() {
         return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
     }
 
     public List<List<BigDecimal>> getCoordinates() {
         return coordinates.stream()
                 .map(coordinate -> Arrays.asList(coordinate.getLatitude(), coordinate.getLongitude()))
+                .collect(Collectors.toList());
+    }
+
+    public void setCoordinates(List<List<BigDecimal>> coordinates) {
+        this.coordinates = coordinates.stream()
+                .map(decimals -> new Coordinate(decimals.get(0), decimals.get(1)))
                 .collect(Collectors.toList());
     }
 
@@ -108,37 +133,7 @@ public class Route {
         this.placeId = placeId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public void setAddedAt(Long addedAt) {
-        this.addedAt = addedAt;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public void setRouteType(String routeType) {
-        this.routeType = routeType;
-    }
-
     public void addCoordinate(Coordinate coordinate) {
         coordinates.add(coordinate);
-    }
-
-    public void setCoordinates(List<List<BigDecimal>> coordinates) {
-        this.coordinates = coordinates.stream()
-                .map(decimals -> new Coordinate(decimals.get(0), decimals.get(1)))
-                .collect(Collectors.toList());
     }
 }

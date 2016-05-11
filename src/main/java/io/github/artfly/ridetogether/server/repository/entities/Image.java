@@ -31,20 +31,32 @@ public class Image {
 
     public Image(String imagePath, BigDecimal latitude, BigDecimal longitude) {
         this.id = imagePath;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public BigDecimal getLatitude() {
         return latitude;
     }
 
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
     public BigDecimal getLongitude() {
         return longitude;
     }
 
-    String getImagePath() {
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getImagePath() {
         return id;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.id = imagePath;
     }
 
     public User getCreator() {
@@ -53,17 +65,5 @@ public class Image {
 
     public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.id = imagePath;
     }
 }

@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CommentRepository extends BaseRepository<Comment, Long> {
     List<Comment> findByRoute_IdEquals(Long routeId, Pageable pageable);
+
     List<Comment> findByRoute_IdEqualsAndAddedAtLessThan(Long routeId, Long addedAt, Pageable pageable);
 }

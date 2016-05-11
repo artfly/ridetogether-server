@@ -88,14 +88,14 @@ public class Comment {
                 .collect(Collectors.toList());
     }
 
-    public List<Coordinate> getDbCoordinates() {
-        return coordinates;
-    }
-
     public void setCoordinates(List<List<BigDecimal>> coordinates) {
         this.coordinates = coordinates.stream()
                 .map(decimals -> new Coordinate(decimals.get(0), decimals.get(1)))
                 .collect(Collectors.toList());
+    }
+
+    public List<Coordinate> getDbCoordinates() {
+        return coordinates;
     }
 
     public List<String> getPicsPaths() {

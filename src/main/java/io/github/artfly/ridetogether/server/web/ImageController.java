@@ -32,9 +32,9 @@ public class ImageController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "{imagePath}/coordinates",method = RequestMethod.PUT)
+    @RequestMapping(value = "{imagePath}/coordinates", method = RequestMethod.PUT)
     public ResponseEntity<ImageDto> addCoordinates(@AuthenticationPrincipal CurrentUser currentUser,
-                                                    @PathVariable String imagePath, @RequestBody ImageDto imageDto) {
+                                                   @PathVariable String imagePath, @RequestBody ImageDto imageDto) {
         return new ResponseEntity<>(imageService.addCoordinates(currentUser, imageDto), HttpStatus.OK);
     }
 

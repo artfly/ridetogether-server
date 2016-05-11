@@ -73,12 +73,4 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.save(image);
         return modelMapper.map(image, ImageDto.class);
     }
-
-    @Override
-    public void updateCoordinates(ImageDto imageDto) {
-        Image image = Utils.validate(imageDto.getImagePath(), imageRepository);
-        image.setLongitude(imageDto.getLongitude());
-        image.setLatitude(imageDto.getLatitude());
-        imageRepository.save(image);
-    }
 }

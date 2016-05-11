@@ -13,6 +13,4 @@ public interface ImageService {
     FileSystemResource getImageFile(String imagePath);
 
     ImageDto getImage(String imagePath);
-
-    void updateCoordinates(ImageDto imageDto);
 }

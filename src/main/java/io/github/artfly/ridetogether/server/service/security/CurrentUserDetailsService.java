@@ -1,8 +1,8 @@
 package io.github.artfly.ridetogether.server.service.security;
 
+import io.github.artfly.ridetogether.server.repository.UserRepository;
 import io.github.artfly.ridetogether.server.repository.entities.User;
 import io.github.artfly.ridetogether.server.service.exceptions.NotFoundException;
-import io.github.artfly.ridetogether.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +21,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new NotFoundException(String.format("No such user : %s", username)));
+                .orElseThrow(() -> new NotFoundException(username));
         return new CurrentUser(user);
     }
 }

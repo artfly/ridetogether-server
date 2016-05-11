@@ -1,11 +1,11 @@
 package io.github.artfly.ridetogether.server.service;
 
-import io.github.artfly.ridetogether.server.service.exceptions.AuthorizeException;
 import io.github.artfly.ridetogether.server.repository.EventRepository;
 import io.github.artfly.ridetogether.server.repository.ImageRepository;
 import io.github.artfly.ridetogether.server.repository.RouteRepository;
 import io.github.artfly.ridetogether.server.repository.entities.Event;
 import io.github.artfly.ridetogether.server.repository.entities.User;
+import io.github.artfly.ridetogether.server.service.exceptions.AuthorizeException;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
 import io.github.artfly.ridetogether.server.utils.Utils;
 import io.github.artfly.ridetogether.server.web.dto.event.EventDto;
@@ -39,7 +39,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> getEvents(String place, Integer count, Long since, String routeType) {
         Pageable pageable;
-        Type eventDtoType = new TypeToken<List<EventDto>>() {}.getType();
+        Type eventDtoType = new TypeToken<List<EventDto>>() {
+        }.getType();
         List<Event> events;
         if (count > MAX_COUNT) {
             pageable = new PageRequest(0, MAX_COUNT);

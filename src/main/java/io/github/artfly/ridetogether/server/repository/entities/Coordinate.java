@@ -24,10 +24,6 @@ public class Coordinate {
         this.latitude = latitude.toString();
         this.longitude = longitude.toString();
     }
-//
-//    @JsonIgnore
-//    @ManyToOne
-//    private Route route;
 
     public Long getId() {
         return id;

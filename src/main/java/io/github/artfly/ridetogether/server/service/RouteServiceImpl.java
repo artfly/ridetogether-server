@@ -2,7 +2,6 @@ package io.github.artfly.ridetogether.server.service;
 
 import io.github.artfly.ridetogether.server.repository.CoordinateRepository;
 import io.github.artfly.ridetogether.server.repository.RouteRepository;
-import io.github.artfly.ridetogether.server.repository.entities.Coordinate;
 import io.github.artfly.ridetogether.server.repository.entities.Route;
 import io.github.artfly.ridetogether.server.service.exceptions.AuthorizeException;
 import io.github.artfly.ridetogether.server.service.security.CurrentUser;
