@@ -1,5 +1,6 @@
 package io.github.artfly.ridetogether.server.repository.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Route {
     private String description;
 
     @Column(nullable = false)
-    private Double rating;
+    private Double rating = 0.0;
 
     @Column(nullable = false)
     private String placeId;
@@ -36,7 +37,6 @@ public class Route {
     @JoinColumn(name = "creator_id")
     private User creator;
 
-    //    @OneToMany(mappedBy = "route")
     @OneToMany
     private List<Coordinate> coordinates = new ArrayList<>();
 
@@ -45,9 +45,8 @@ public class Route {
     public Route() {
     }
 
-    public Route(String routeType, Double rating, String description, String title, User creator) {
+    public Route(String routeType, String description, String title, User creator) {
         this.routeType = routeType;
-        this.rating = rating;
         this.description = description;
         this.title = title;
         this.creator = creator;

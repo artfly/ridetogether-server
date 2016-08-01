@@ -63,7 +63,7 @@ public class EventController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "{eventId}/unsubscribe", method = RequestMethod.POST)
+    @RequestMapping(value = "{eventId}/unsubscribe", method = RequestMethod.DELETE)
     ResponseEntity<HttpStatus> removeSubscriber(@AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long eventId) {
         subscribeService.unsubscribe(currentUser, eventId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

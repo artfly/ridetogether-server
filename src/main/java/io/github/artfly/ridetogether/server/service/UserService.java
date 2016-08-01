@@ -9,4 +9,6 @@ public interface UserService {
     void updateUser(CurrentUser currentUser, UserDto userDto);
 
     UserDto getUser(Long userId);
+
+    UserDto loginUser(CurrentUser currentUser);
 }

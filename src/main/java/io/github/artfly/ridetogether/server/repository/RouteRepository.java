@@ -10,4 +10,8 @@ public interface RouteRepository extends BaseRepository<Route, Long> {
     List<Route> findByPlaceId(String placeId, Pageable pageable);
 
     List<Route> findByPlaceIdAndRouteType(String placeId, String routeType, Pageable pageable);
+
+    List<Route> findByAddedAtLessThanAndPlaceId(Long addedAt, String placeId, Pageable pageable);
+
+    List<Route> findByAddedAtLessThanAndPlaceIdAndRouteType(Long addedAt, String placeId, String routeType, Pageable pageable);
 }

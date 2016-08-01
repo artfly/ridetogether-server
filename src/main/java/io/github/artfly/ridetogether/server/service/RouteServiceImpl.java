@@ -36,7 +36,6 @@ public class RouteServiceImpl implements RouteService {
             protected void configure() {
                 map().setDescription(source.getProperties().getDescription());
                 map().setTitle(source.getProperties().getTitle());
-                map().setRating(source.getProperties().getRating());
                 map().setRouteType(source.getProperties().getRouteType());
                 map().setCoordinates(source.getGeometry().getCoordinates());
                 map().setPlaceId(source.getProperties().getPlaceId());
@@ -86,7 +85,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<RouteDto> getRoutes(String place, Integer count, String routeType) {
+    public List<RouteDto> getRoutes(String place, Integer count, Long since, String routeType) {
         Pageable pageable;
         if (count > MAX_COUNT) {
             count = MAX_COUNT;
@@ -94,11 +93,16 @@ public class RouteServiceImpl implements RouteService {
         pageable = new PageRequest(0, count);
 
         List<Route> routes;
-        if (routeType == null) {
-            routes = routeRepository.findByPlaceId(place, pageable);
-        } else {
+        if (since != null && routeType != null) {
+            routes = routeRepository.findByAddedAtLessThanAndPlaceIdAndRouteType(since, place, routeType, pageable);
+        } else if (since != null) {
+            routes = routeRepository.findByAddedAtLessThanAndPlaceId(since, place, pageable);
+        } else if (routeType != null) {
             routes = routeRepository.findByPlaceIdAndRouteType(place, routeType, pageable);
+        } else {
+            routes = routeRepository.findByPlaceId(place, pageable);
         }
+
         return routes.stream()
                 .map(route -> modelMapper.map(route, RouteDto.class))
                 .collect(Collectors.toList());

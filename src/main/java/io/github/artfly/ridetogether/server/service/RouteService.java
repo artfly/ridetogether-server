@@ -12,5 +12,5 @@ public interface RouteService {
 
     void deleteRoute(CurrentUser currentUser, Long routeId);
 
-    List<RouteDto> getRoutes(String place, Integer count, String routeType);
+    List<RouteDto> getRoutes(String place, Integer count, Long since, String routeType);
 }

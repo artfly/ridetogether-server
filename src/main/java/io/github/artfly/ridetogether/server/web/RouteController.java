@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
-// TODO : add comments
 @RestController
 @RequestMapping("/routes")
 public class RouteController {
     private static final String DEFAULT_COUNT = "20";
+    private static final String DEFAULT_OFFSET = "0";
     private final RouteService routeService;
     private final CommentService commentService;
 
@@ -32,8 +31,9 @@ public class RouteController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<RouteDto>> getRoutes(@RequestParam(value = "count", required = false, defaultValue = DEFAULT_COUNT) Integer count,
                                                     @RequestParam(value = "place") String place,
-                                                    @RequestParam(value = "type", required = false) String routeType) {
-        return new ResponseEntity<>(routeService.getRoutes(place, count, routeType), HttpStatus.OK);
+                                                    @RequestParam(value = "type", required = false) String routeType,
+                                                    @RequestParam(value = "since", required = false) Long since) {
+        return new ResponseEntity<>(routeService.getRoutes(place, count, since, routeType), HttpStatus.OK);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -75,11 +75,4 @@ public class RouteController {
                                                  @RequestParam(value = "since", required = false) Long since) {
         return new ResponseEntity<>(commentService.getComments(routeId, count, since), HttpStatus.OK);
     }
-
-//    @RequestMapping()
-
-
-////    @RequestMapping(method = RequestMethod.GET)
-////    ResponseEntity<List<Route>> getRoutes(@RequestParam Integer count, )
-
 }

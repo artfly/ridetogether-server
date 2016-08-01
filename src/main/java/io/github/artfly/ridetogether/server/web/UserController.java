@@ -38,4 +38,10 @@ public class UserController {
         userService.updateUser(currentUser, user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    ResponseEntity<UserDto> loginUser(@AuthenticationPrincipal CurrentUser currentUser) {
+        return new ResponseEntity<>(userService.loginUser(currentUser), HttpStatus.OK);
+    }
 }
